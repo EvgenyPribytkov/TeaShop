@@ -1,0 +1,38 @@
+﻿@page
+@model TeaShop.Pages.OrdersModel
+@{
+}
+
+<h3>Orders</h3>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Tea Name
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var order in Model.TeaOrders)
+        {
+            <tr>
+                <th>
+                    @order.Id
+                </th>
+                <th>
+                    @order.TeaName
+                </th>
+                <th>
+                    @order.BasePrice
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
