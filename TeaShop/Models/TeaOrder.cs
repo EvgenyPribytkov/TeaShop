@@ -5,10 +5,7 @@ namespace TeaShop.Models;
 
 public class TeaOrder
 {
-    [BsonId]
-    public ObjectId Id { get; set; }
-    [BsonElement("teaname")]
+    public int Id { get; set; }
     public string TeaName { get; set; }
-    [BsonElement("baseprice")]
     public float BasePrice { get; set; }
 }
