@@ -1,8 +1,14 @@
-﻿namespace TeaShop.Models;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace TeaShop.Models;
 
 public class TeaOrder
 {
-    public int Id { get; set; }
+    [BsonId]
+    public ObjectId Id { get; set; }
+    [BsonElement("teaname")]
     public string TeaName { get; set; }
+    [BsonElement("baseprice")]
     public float BasePrice { get; set; }
 }

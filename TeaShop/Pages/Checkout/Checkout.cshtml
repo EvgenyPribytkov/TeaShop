@@ -1,12 +1,12 @@
 ﻿@page
 @model TeaShop.Pages.Checkout.CheckoutModel
+
 @{
-
+ViewData["Title"] = "Your Order";
 }
-
 <h1>Your Order</h1>
 @{
-    var imagePath = "~/images/Teas/" + (@Model.ImageTitle + ".png");
+    var imagePath = "~/images/Teas/" + (@Model.ImageTitle + ".jpg");
 }
 <div class="align-baseline-content-center">
     <div class="col-3 mx-auto mb-5">
