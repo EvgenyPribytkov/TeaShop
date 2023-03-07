@@ -8,7 +8,7 @@ namespace TeaShop.Pages.Forms
     public class CustomTeacshtmlModel : PageModel
     {
         [BindProperty]
-        public Models.Tea Tea { get; set; }
+        public TeasModel Tea { get; set; }
         public float TeaPrice { get; set; }
         public void OnGet()
         {
@@ -17,7 +17,6 @@ namespace TeaShop.Pages.Forms
         public IActionResult OnPost()
         {
             TeaPrice = Tea.BasePrice;
-
             if (Tea.Size == "250g") TeaPrice += 15;
             else if (Tea.Size == "500g") TeaPrice += 35;
             else if (Tea.Size == "1kg") TeaPrice += 100;

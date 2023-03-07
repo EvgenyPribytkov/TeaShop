@@ -2,23 +2,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TeaShop.Data;
 using TeaShop.Models;
-using TeaShop.Services;
 
 namespace TeaShop.Pages;
 
 public class OrdersModel : PageModel
 {
-    private TeaOrdersRepository _teaOrdersRepository { get; set; }
     public List<TeaOrder> TeaOrders = new List<TeaOrder>();
+    private readonly ApplicationDbContext _context;
 
-    public OrdersModel(IConfiguration configuration)
+    public OrdersModel(ApplicationDbContext context)
     {
-        var connectionString = configuration.GetConnectionString("TeaShopMongoDB");
-        _teaOrdersRepository = new TeaOrdersRepository(connectionString);
+        _context = context;
     }
-
-    public async Task OnGetAsync()
+    public void OnGet()
     {
-        TeaOrders = await _teaOrdersRepository.GetAllTeaOrders();
+        TeaOrders = _context.TeaOrders.ToList();
     }
 }

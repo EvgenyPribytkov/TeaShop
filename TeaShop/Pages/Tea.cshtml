@@ -2,6 +2,27 @@
 @model TeaShop.Pages.TeaModel
 @{
 }
+<style>
+    .makeYourOwnDiv {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+        .makeYourOwnDiv img {
+            margin-right: 30px;
+        }
+
+    .makeYourOwnText {
+        text-align: left;
+    }
+
+    .tea-img {
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
 <div class="text-center">
     <div class="mainText">
         <h1 class="display-4 text-capitalize text-black">Our great selection of teas!</h1>
@@ -9,15 +30,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mb-5 mt-5">
-                <div class="w-100 row makeYourOwnDiv">
-                    <div class="col-4">
+                <div class="row makeYourOwnDiv">
+                    <div class="col-md-4">
                         <img src="~/images/image.jpeg" class="w-100" />
                     </div>
-                    <div class="col-8 align-items-center">
-                        <div class="align-middle makeYourOwnText">
-                            <h3 style="text-align:left;">Create Your Own Tea</h3>
-                            <p style="text-align: left;">Make your own Tea with our TeaMaker</p>
-                            <a class="btn btn-primary" style="float: left" asp-area="" asp-page="Forms/CustomTea">Try Now</a>
+                    <div class="col-md-8 align-items-center">
+                        <div class="makeYourOwnText">
+                            <h3>Create Your Own Tea</h3>
+                            <p>Make your own Tea with our TeaMaker</p>
+                            <a class="btn btn-primary" asp-area="" asp-page="Forms/CustomTea">Try Now</a>
                         </div>
                     </div>
                 </div>
@@ -25,14 +46,11 @@
             @foreach (var tea in Model.teaDB)
             {
                 var imagePath = "~/images/Teas/" + (tea.ImageTitle + ".jpg");
-                <div class="col-4 mb-5">
-                    
-                    <a class="tea-img" asp-area=""
-                   asp-page="Checkout/Checkout" 
-                   asp-route-ImageTitle="@tea.ImageTitle"
-                   asp-route-TeaPrice="@tea.FinalPrice"
-                   asp-route-TeaName="@tea.TeaName"><img src="@imagePath" class="w-100" asp-append-version="true" />@tea.TeaName</a>
-                    <br />
+                <div class="col-md-4 mb-5">
+                    <a class="tea-img" asp-area="" asp-page="Checkout/Checkout" asp-route-ImageTitle="@tea.ImageTitle" asp-route-TeaPrice="@tea.FinalPrice" asp-route-TeaName="@tea.TeaName">
+                        <img src="@imagePath" class="w-100" asp-append-version="true" />
+                        <span>@tea.TeaName</span>
+                    </a>
                 </div>
             }
         </div>

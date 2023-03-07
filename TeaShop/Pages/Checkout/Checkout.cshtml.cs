@@ -1,27 +1,22 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using TeaShop.Services;
-using Microsoft.Extensions.Configuration;
+using TeaShop.Data;
 using TeaShop.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using System.Diagnostics.Metrics;
 
 namespace TeaShop.Pages.Checkout
 {
+    [BindProperties(SupportsGet = true)]
     public class CheckoutModel : PageModel
     {
-        private TeaOrdersRepository TeaOrdersRepository { get; set; }
-
-        public CheckoutModel(IConfiguration configuration)
+        private readonly ApplicationDbContext _context;
+        public CheckoutModel(ApplicationDbContext context)
         {
-            var connectionString = configuration.GetConnectionString("TeaShopMongoDB");
-            TeaOrdersRepository = new TeaOrdersRepository(connectionString);
+            _context = context;
         }
-
         public string TeaName { get; set; }
         public float TeaPrice { get; set; }
         public string ImageTitle { get; set; }
-
-        public async void OnGet(string teaName, float teaPrice)
+        public void OnGet()
         {
             if (string.IsNullOrWhiteSpace(TeaName))
             {
@@ -31,17 +26,12 @@ namespace TeaShop.Pages.Checkout
             {
                 ImageTitle = "Create";
             }
+            TeaOrder teaOrder = new TeaOrder();
+            teaOrder.TeaName = TeaName;
+            teaOrder.BasePrice = TeaPrice;
 
-            TeaName = teaName;
-            TeaPrice = teaPrice;
-            ImageTitle = "Create";
-
-            TeaOrder teaOrder = new TeaOrder
-            {
-                TeaName = TeaName,
-                BasePrice = TeaPrice
-            };
-            await TeaOrdersRepository.InsertTeaOrder(teaOrder);
+            _context.TeaOrders.Add(teaOrder);
+            _context.SaveChanges();
         }
     }
 }

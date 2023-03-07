@@ -3,7 +3,7 @@ using MongoDB.Bson;
 
 namespace TeaShop.Models;
 
-public class Tea
+public class TeasModel
 {
     public int Id { get; set; }
     public string ImageTitle { get; set; }
